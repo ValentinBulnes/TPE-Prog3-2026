@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,19 +19,33 @@ public class Servicios {
         }
     }
 
-   //Expresar la complejidad temporal del servicio 1.
+   //Expresar la complejidad temporal del servicio 1. 
+   //               O(1)??
     public Paquete servicio1(String codigoPaquete) {
-        return paquetesPorCodigo.get(codigoPaquete);
+        Paquete salida = (paquetesPorCodigo.containsKey(codigoPaquete)) ? paquetesPorCodigo.get(codigoPaquete) : null;
+        return salida;
     }
 
 
     //Expresar la complejidad temporal del servicio 2.
+    //               O(n)??
     public List<Paquete> servicio2(boolean contieneAlimentos) {
-        return null;
+        List<Paquete> salida = new ArrayList<>();
+        for(String codigo : paquetesPorCodigo.keySet()) {
+            Paquete p = paquetesPorCodigo.get(codigo);
+            if(p.contieneAlimentos() == contieneAlimentos) salida.add(p);
+        }
+        return salida;
     }
 
     //Expresar la complejidad temporal del servicio 3.
+    //                O(n)??
     public List<Paquete> servicio3(int urgenciaMinima, int urgenciaMaxima) {
-        return null;
+        List<Paquete> salida = new ArrayList<>();
+        for(String codigo : paquetesPorCodigo.keySet()) {
+            Paquete p = paquetesPorCodigo.get(codigo);
+            if(p.getNivelUrgencia() >= urgenciaMaxima && p.getNivelUrgencia() <= urgenciaMaxima) salida.add(p);
+        }
+        return salida;
     }
 }

@@ -22,7 +22,7 @@ public class Paquete {
     public int getPesoKg() {
         return pesoKg;
     }
-    public boolean isContieneAlimentos() {
+    public boolean contieneAlimentos() {
         return contieneAlimentos;
     }
     public int getNivelUrgencia() {
