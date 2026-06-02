@@ -17,12 +17,14 @@ public class Camion {
     public String getPatente() {
         return patente;
     }
-
     public boolean estaRefrigerado() {
         return estaRefrigerado;
     }
     public int getCapacidadKg() {
         return capacidadKg;
+    }
+    public int restarCapacidad(int pesoKg) {
+        return capacidadKg -= pesoKg;
     }
 
     @Override

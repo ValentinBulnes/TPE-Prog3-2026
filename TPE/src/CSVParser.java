@@ -11,6 +11,7 @@ public class CSVParser {
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathCamiones))) {
             int total = Integer.parseInt(br.readLine().trim());
+            camiones = new ArrayList<>(total);
 
             for (int i = 0; i < total; i++) {
                 String linea = br.readLine();
@@ -36,6 +37,7 @@ public class CSVParser {
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathPaquetes))) {
             int total = Integer.parseInt(br.readLine().trim());
+            paquetes = new ArrayList<>(total);
 
             for (int i = 0; i < total; i++) {
                 String linea = br.readLine();
