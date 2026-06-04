@@ -23,9 +23,6 @@ public class Camion {
     public int getCapacidadKg() {
         return capacidadKg;
     }
-    public int restarCapacidad(int pesoKg) {
-        return capacidadKg -= pesoKg;
-    }
 
     @Override
     public String toString() {

@@ -26,7 +26,6 @@ public class Solucion {
     }
 
     public void imprimir() {
-        System.out.println("Backtracking");
         System.out.println("Solución obtenida:");
 
         for (Camion c : resultado.keySet()) {
@@ -48,6 +47,6 @@ public class Solucion {
             }
         }
         System.out.println("Peso no asignado: " + pesoNoAsignado + " kg.");
-        System.out.println("Cantidad de estados generados: " + estadosGenerados);
+        System.out.println("Cantidad de estados generados/candidatos considerados: " + estadosGenerados);
     }
 }

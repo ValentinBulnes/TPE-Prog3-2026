@@ -105,6 +105,8 @@ public class Backtracking {
     // Genera un arreglo con los pesos acumulados de los paquetes, esto ayuda a tener una complejidad de O(1) a la hora de hacer la poda
     private int[] obtenerPesoAcumulado() {
         int[] salida = new int[paquetes.size()];
+
+        if (paquetes.isEmpty()) return salida;
         
         salida[paquetes.size()-1] = paquetes.get(paquetes.size()- 1).getPesoKg();
 

@@ -22,16 +22,19 @@ public class Greedy {
      * se retorna la solucion.
      * La solucion es un HashMap donde la key es el camion y cada valor es una lista de paquetes que se cargaron
      * en ese camion.
-     * Se incluye un metodo para imprimir los resultados de la solucion.
      *
-     * Complejidad Temporal: O(n^2) donde n es la cantidad de paquetes y camiones.
+     * Complejidad Temporal: O(PxC) donde P es la cantidad de paquetes y C la cantidad de camiones.
+     * Ya que por cada paquete se itera la lista de camiones buscando el adecuado.
+     * (Sin tener en cuenta el de ordenar las listas)
      */
-    public Map<Camion, List<Paquete>> resolver(List<Camion> camiones, List<Paquete> paquetes) {
+    public Solucion resolver(List<Camion> camiones, List<Paquete> paquetes) {
         //se crea la estructura para la solucion
-        Map<Camion, List<Paquete>> asignaciones = new HashMap<>();
+        HashMap<Camion, List<Paquete>> asignaciones = new HashMap<>();
+        HashMap<Camion, Integer> capacidadRestante = new HashMap<>();
 
         for (Camion c : camiones) {
             asignaciones.put(c, new ArrayList<>());
+            capacidadRestante.put(c, c.getCapacidadKg());
         }
 
         //ordenar camiones por capacidad de mayor a menor
@@ -47,16 +50,16 @@ public class Greedy {
             boolean pudoSerAsignado = false;
             int i = 0;
 
-            while (i < camiones.size() && !pudoSerAsignado) {
+            while (i < camionesOrdenados.size() && !pudoSerAsignado) {
                 Camion c = camionesOrdenados.get(i);
 
-                boolean entraPorPeso = p.getPesoKg() <= c.getCapacidadKg();
+                boolean entraPorPeso = p.getPesoKg() <= capacidadRestante.get(c);
                 boolean cumpleFrio = !p.contieneAlimentos() || c.estaRefrigerado();
 
                 if (entraPorPeso && cumpleFrio) {
                     asignaciones.get(c).add(p);
+                    capacidadRestante.put(c, capacidadRestante.get(c) - p.getPesoKg());
                     pudoSerAsignado = true;
-                    c.restarCapacidad(p.getPesoKg());
                 }
                 i++;
             }
@@ -65,34 +68,6 @@ public class Greedy {
                 this.pesoNoAsignado += p.getPesoKg();
             }
         }
-        return asignaciones;
-    }
-
-
-
-    public void imprimirResultados(Map<Camion, List<Paquete>> solucion) {
-        System.out.println("Greedy");
-        System.out.println("Solución obtenida:");
-
-        for (Camion c : solucion.keySet()) {
-            List<Paquete> carga = solucion.get(c);
-
-            System.out.print("Camión " + c.getId() + " -> Paquetes asignados: ");
-
-            if (carga.isEmpty()) {
-                System.out.println("Ninguno");
-            } else {
-                System.out.print("[");
-                for (int i = 0; i < carga.size(); i++) {
-                    System.out.print(carga.get(i).getId());
-                    if (i < carga.size() - 1) {
-                        System.out.print(", ");
-                    }
-                }
-                System.out.println("]");
-            }
-        }
-        System.out.println("Peso no asignado: " + this.pesoNoAsignado + " kg.");
-        System.out.println("Cantidad de candidatos considerados: " + this.candidatosConsiderados);
+        return new Solucion(asignaciones, this.pesoNoAsignado, this.candidatosConsiderados);
     }
 }

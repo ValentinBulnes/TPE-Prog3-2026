@@ -7,16 +7,19 @@ public class Main {
         // System.out.println(s.servicio2(true));
         // System.out.println(s.servicio3(40, 90));
 
-        List<Camion> camiones = CSVParser.parsearCamiones("TPE/Camiones.csv");
-        List<Paquete> paquetes = CSVParser.parsearPaquetes("TPE/Paquetes.csv");
+        List<Camion> camiones = CSVParser.parsearCamiones("Camiones.csv");
+        List<Paquete> paquetes = CSVParser.parsearPaquetes("Paquetes.csv");
 
+        System.out.println("Backtracking");
         Backtracking back = new Backtracking();
-        Solucion solucion = back.resolver(camiones, paquetes);
-        solucion.imprimir();
+        Solucion solucionBacktracking = back.resolver(camiones, paquetes);
+        solucionBacktracking.imprimir();
 
         System.out.println();
 
+        System.out.println("Greedy");
         Greedy greedy = new Greedy();
-        greedy.imprimirResultados(greedy.resolver(camiones, paquetes));
+        Solucion solucionGreedy = greedy.resolver(camiones, paquetes);
+        solucionGreedy.imprimir();
     }
 }
